@@ -1,6 +1,7 @@
 const lessonsLoadingSpiner = document.querySelector(
     "#level-container>.loading",
 );
+const wordsLoadingInfinity = document.querySelector("#word-container>.loading");
 const loadLessons = async () => {
     lessonsLoadingSpiner.classList.remove("hidden");
     const url = "https://openapi.programming-hero.com/api/levels/all";
@@ -27,7 +28,7 @@ const showLessons = (lessons = []) => {
 loadLessons();
 
 const loadLevelWords = async (level) => {
-    console.log(level);
+    wordsLoadingInfinity.classList.remove("hidden");
     const url = `https://openapi.programming-hero.com/api/level/${level}`;
     const res = await fetch(url);
     const data = await res.json();
@@ -35,6 +36,7 @@ const loadLevelWords = async (level) => {
 };
 const showLevelWords = (words = []) => {
     const wordContainer = document.getElementById("word-container");
+    wordContainer.innerHTML = "";
     words.forEach((word) => {
         // {id: 170, level: 6, word: 'Vicarious', meaning: 'পরোক্ষভাবে অনুভূতি গ্রহণ করা', pronunciation: 'ভিকেরিয়াস'}
         const {
@@ -42,12 +44,25 @@ const showLevelWords = (words = []) => {
             level,
             word: currentWord,
             meaning,
-            pronounciation,
+            pronunciation,
         } = word || {};
         const wordCard = document.createElement("div");
+        wordCard.classList =
+            "bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-2";
         wordCard.innerHTML = `
-        <p>${currentWord}</p>
+            <h2 class="text-2xl font-bold">${currentWord}</h2>
+            <p class="font-bangla text-lg">${meaning}</p>
+            <p class="font-bangla text-xl font-semibold">"${pronunciation}"</p>
+            <span class="flex justify-between">
+                <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
+                    <i class="fa-solid fa-circle-info"></i>
+                </button>
+                <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            </span>
         `;
         wordContainer.appendChild(wordCard);
     });
+    wordsLoadingInfinity.classList.add("hidden");
 };

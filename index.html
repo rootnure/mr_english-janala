@@ -30,7 +30,7 @@
         />
     </head>
     <body>
-        <header class="navbar bg-base-100 shadow-sm flex justify-between">
+        <header class="navbar bg-base-100 shadow-sm">
             <div class="navbar-start">
                 <div class="dropdown">
                     <div
@@ -86,7 +86,7 @@
                     >
                 </a>
             </div>
-            <div class="navbar-center hidden lg:flex">
+            <div class="navbar-end hidden lg:flex">
                 <ul class="menu menu-horizontal px-1 gap-2">
                     <li>
                         <a href="/faq" class="btn btn-outline btn-primary"
@@ -110,9 +110,9 @@
                 </ul>
             </div>
         </header>
-
+        <!-- banner section -->
         <section
-            class="flex flex-col-reverse md:flex-row items-center py-5 w-11/12 mx-auto"
+            class="flex flex-col-reverse md:flex-row items-center py-5 w-11/12 mx-auto md:gap-x-16"
         >
             <div class="content flex-1 text-center md:text-left">
                 <h2 class="text-5xl font-extrabold mb-5">
@@ -128,7 +128,7 @@
                 <img src="./assets/hero-student.png" alt="Banner Image" />
             </div>
         </section>
-
+        <!-- levels and words section container -->
         <section>
             <h2 class="text-4xl font-extrabold mb-5 text-center">
                 <span class="text-sky-400">Let's</span> Learn Vocabulary!
@@ -138,13 +138,17 @@
                 class="flex mx-auto justify-center flex-wrap gap-2"
             >
                 <span
-                    class="loading loading-spinner loading-md text-[#422ad5]"
+                    class="hidden loading loading-spinner loading-md text-[#422ad5]"
                 ></span>
             </div>
             <div
                 id="word-container"
-                class="bg-gray-100 p-10 my-6 md:w-11/12 mx-auto rounded-md"
-            ></div>
+                class="bg-gray-100 p-10 my-6 md:w-11/12 mx-auto rounded-md grid grid-cols-1 md:grid-cols-3 gap-5"
+            >
+                <span
+                    class="hidden loading loading-infinity loading-md md:col-span-3"
+                ></span>
+            </div>
         </section>
 
         <!-- Scripts -->
