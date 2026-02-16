@@ -148,7 +148,7 @@
             </div>
             <div
                 id="word-container"
-                class="bg-gray-100 p-10 my-6 md:w-11/12 mx-auto rounded-md grid grid-cols-1 md:grid-cols-3 gap-5 max-h-[750px] overflow-y-scroll"
+                class="bg-gray-100 p-10 my-6 md:w-11/12 mx-auto rounded-md grid grid-cols-1 md:grid-cols-3 gap-5 max-h-[750px] overflow-y-auto"
             >
                 <span
                     class="hidden loading loading-infinity loading-md col-span-full"
@@ -163,7 +163,21 @@
                 </div>
             </div>
         </section>
-
+        <!-- modal -->
+        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <h3 class="text-lg font-bold">Hello!</h3>
+                <p class="py-4">
+                    Press ESC key or click the button below to close
+                </p>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
         <!-- Scripts -->
         <script src="./js/index.js"></script>
     </body>

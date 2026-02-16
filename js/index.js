@@ -16,7 +16,9 @@ const showLessons = (lessons = []) => {
     lessons.forEach((lesson) => {
         const { id, level_no, lessonName } = lesson;
         const btn = document.createElement("button");
-        btn.classList = "btn btn-outline btn-primary w-max text-nowrap";
+        btn.setAttribute("id", "lesson-btn-" + level_no);
+        btn.classList =
+            "btn btn-outline btn-primary w-max text-nowrap lesson-btn";
         btn.setAttribute("title", lessonName);
         btn.setAttribute("onclick", `loadLevelWords(${level_no})`);
         btn.textContent = "Level - " + level_no;
@@ -27,12 +29,22 @@ const showLessons = (lessons = []) => {
 
 loadLessons();
 
+const removeLessonActive = () => {
+    const lessonBtns = document.getElementsByClassName("lesson-btn");
+    Array.from(lessonBtns).forEach((btn) => btn.classList.add("btn-outline"));
+};
+
 const loadLevelWords = async (level) => {
     wordsLoadingInfinity.classList.remove("hidden");
     const url = `https://openapi.programming-hero.com/api/level/${level}`;
     const res = await fetch(url);
     const data = await res.json();
     showLevelWords(data.data);
+    // active btn
+    const activeLessonBtn = document.getElementById("lesson-btn-" + level);
+    removeLessonActive();
+    activeLessonBtn.classList.remove("btn-outline");
+    console.log(activeLessonBtn);
 };
 const showLevelWords = (words = []) => {
     const wordContainer = document.getElementById("word-container");
@@ -64,7 +76,7 @@ const showLevelWords = (words = []) => {
             <p class="text-lg">Meaning / Pronounciation</p>
             <p class="font-bangla text-xl font-semibold">"${meaning || "<span class='text-red-400'>অর্থ পাওয়া যায়নি</span>"} / ${pronunciation || "<span class='text-red-400'>উচ্চারণ পাওয়া যায়নি</span>"}"</p>
             <span class="flex justify-between">
-                <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
+                <button onclick="my_modal_5.showModal()" class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
                     <i class="fa-solid fa-circle-info"></i>
                 </button>
                 <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
