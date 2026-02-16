@@ -3,6 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="shortcut icon"
+            href="./assets/logo.png"
+            type="image/x-icon"
+        />
         <title>English Janala</title>
         <!-- font awesome -->
         <link
@@ -143,11 +148,19 @@
             </div>
             <div
                 id="word-container"
-                class="bg-gray-100 p-10 my-6 md:w-11/12 mx-auto rounded-md grid grid-cols-1 md:grid-cols-3 gap-5"
+                class="bg-gray-100 p-10 my-6 md:w-11/12 mx-auto rounded-md grid grid-cols-1 md:grid-cols-3 gap-5 max-h-[750px] overflow-y-scroll"
             >
                 <span
-                    class="hidden loading loading-infinity loading-md md:col-span-3"
+                    class="hidden loading loading-infinity loading-md col-span-full"
                 ></span>
+                <div
+                    class="font-bangla text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-4"
+                >
+                    <p class="text-xl font-medium text-gray-400">
+                        আপনি এখনো কোন Lesson Select করেন নি
+                    </p>
+                    <h2 class="font-bold text-4xl">একটি Lesson Select করুন।</h2>
+                </div>
             </div>
         </section>
 

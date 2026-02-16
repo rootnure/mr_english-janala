@@ -37,8 +37,18 @@ const loadLevelWords = async (level) => {
 const showLevelWords = (words = []) => {
     const wordContainer = document.getElementById("word-container");
     wordContainer.innerHTML = "";
+    if (!words.length) {
+        wordContainer.innerHTML = `
+        <div class="font-bangla text-center col-span-full rounded-xl py-10 space-y-4">
+            <img class="mx-auto" src="./assets/alert-error.png" />
+            <p class="text-xl font-medium text-gray-400">
+                এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।
+            </p>
+            <h2 class="font-bold text-4xl">নেক্সট Lesson এ যান</h2>
+        </div>`;
+        return;
+    }
     words.forEach((word) => {
-        // {id: 170, level: 6, word: 'Vicarious', meaning: 'পরোক্ষভাবে অনুভূতি গ্রহণ করা', pronunciation: 'ভিকেরিয়াস'}
         const {
             id,
             level,
@@ -50,9 +60,9 @@ const showLevelWords = (words = []) => {
         wordCard.classList =
             "bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-2";
         wordCard.innerHTML = `
-            <h2 class="text-2xl font-bold">${currentWord}</h2>
-            <p class="font-bangla text-lg">${meaning}</p>
-            <p class="font-bangla text-xl font-semibold">"${pronunciation}"</p>
+            <h2 class="text-2xl font-bold">${currentWord || "Not Found"}</h2>
+            <p class="text-lg">Meaning / Pronounciation</p>
+            <p class="font-bangla text-xl font-semibold">"${meaning || "<span class='text-red-400'>অর্থ পাওয়া যায়নি</span>"} / ${pronunciation || "<span class='text-red-400'>উচ্চারণ পাওয়া যায়নি</span>"}"</p>
             <span class="flex justify-between">
                 <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
                     <i class="fa-solid fa-circle-info"></i>
