@@ -2,6 +2,7 @@ const lessonsLoadingSpiner = document.querySelector(
     "#level-container>.loading",
 );
 const wordsLoadingInfinity = document.querySelector("#word-container>.loading");
+
 const loadLessons = async () => {
     lessonsLoadingSpiner.classList.remove("hidden");
     const url = "https://openapi.programming-hero.com/api/levels/all";
@@ -44,8 +45,8 @@ const loadLevelWords = async (level) => {
     const activeLessonBtn = document.getElementById("lesson-btn-" + level);
     removeLessonActive();
     activeLessonBtn.classList.remove("btn-outline");
-    console.log(activeLessonBtn);
 };
+
 const showLevelWords = (words = []) => {
     const wordContainer = document.getElementById("word-container");
     wordContainer.innerHTML = "";
@@ -76,10 +77,10 @@ const showLevelWords = (words = []) => {
             <p class="text-lg">Meaning / Pronounciation</p>
             <p class="font-bangla text-xl font-semibold">"${meaning || "<span class='text-red-400'>অর্থ পাওয়া যায়নি</span>"} / ${pronunciation || "<span class='text-red-400'>উচ্চারণ পাওয়া যায়নি</span>"}"</p>
             <span class="flex justify-between">
-                <button onclick="my_modal_5.showModal()" class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
+                <button onclick="loadWordDetailsModal(${id})" class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
                     <i class="fa-solid fa-circle-info"></i>
                 </button>
-                <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]">
+                <button class="btn bg-[#1a91ff10] hover:bg-[#1a91ff88]" onclick="pronounceWord('${currentWord}')">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
             </span>
@@ -88,3 +89,35 @@ const showLevelWords = (words = []) => {
     });
     wordsLoadingInfinity.classList.add("hidden");
 };
+
+const loadWordDetailsModal = async (id) => {
+    word_details_modal.showModal()
+    const url = `https://openapi.programming-hero.com/api/word/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const wordDetailsObj = data?.data || {};
+    const {meaning, pronunciation, sentence, synonyms, word} = wordDetailsObj;
+    const wordDetails = document.getElementById('word-details');
+    wordDetails.innerHTML = `
+    <h1 class="text-2xl font-bold">${word} (<span class="cursor-pointer" onclick="pronounceWord('${word}')"><i class="fa-solid fa-microphone-lines"></i></span> : ${pronunciation})</h1>
+    <div class="my-4">
+        <h3 class="text-lg font-bold">Meaning</h3>
+        <p class="font-bangla">${meaning || "<span class='text-red-400 italic'>অর্থ পাওয়া যায়নি</span>"}</p>
+    </div>
+    <div class="my-4">
+        <h3 class="text-lg font-bold">Example</h3>
+        <p onclick="pronounceWord('${sentence}')" class="cursor-pointer">${sentence}</p>
+    </div>
+    <div class="my-4">
+        <h3 class="text-lg font-bold">Synonym</h3>
+        <div class="flex gap-x-2">${synonyms.length ? synonyms.map(synonym => `<span onclick="pronounceWord('${synonym}')" class="cursor-pointer rounded-lg p-1 bg-slate-100">${synonym}</span>`).join("") : '<span class="text-red-400 italic">No Synonyms Found</span>'}</div>
+    </div>
+    `;
+}
+
+const pronounceWord = (word) => {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-EN"; // English
+    utterance.rate = 0.75;
+    window.speechSynthesis.speak(utterance);
+}
