@@ -22,7 +22,7 @@ const showLessons = (lessons = []) => {
             "btn btn-outline btn-primary w-max text-nowrap lesson-btn";
         btn.setAttribute("title", lessonName);
         btn.setAttribute("onclick", `loadLevelWords(${level_no})`);
-        btn.textContent = "Level - " + level_no;
+        btn.innerHTML = `<i class="fa-solid fa-book-open"></i> Lesson - ${level_no}`;
         lessonsContainer.appendChild(btn);
     });
     lessonsLoadingSpiner.classList.add("hidden");
@@ -99,7 +99,7 @@ const loadWordDetailsModal = async (id) => {
     const {meaning, pronunciation, sentence, synonyms, word} = wordDetailsObj;
     const wordDetails = document.getElementById('word-details');
     wordDetails.innerHTML = `
-    <h1 class="text-2xl font-bold">${word} (<span class="cursor-pointer" onclick="pronounceWord('${word}')"><i class="fa-solid fa-microphone-lines"></i></span> : ${pronunciation})</h1>
+    <h1 class="text-2xl font-bold">${word} (<span class="cursor-pointer hover:text-blue-600" onclick="pronounceWord('${word}')"><i class="fa-solid fa-microphone-lines"></i></span> : ${pronunciation})</h1>
     <div class="my-4">
         <h3 class="text-lg font-bold">Meaning</h3>
         <p class="font-bangla">${meaning || "<span class='text-red-400 italic'>অর্থ পাওয়া যায়নি</span>"}</p>
